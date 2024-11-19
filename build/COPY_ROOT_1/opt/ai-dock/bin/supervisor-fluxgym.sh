@@ -74,6 +74,7 @@ function start() {
     printf "Starting %s...\n" "${SERVICE_NAME}"
     
     cd /opt/fluxgym
+    mkdir -p logs
     source "$FLUXGYM_VENV/bin/activate"
     LD_PRELOAD=libtcmalloc.so GRADIO_SERVER_PORT=${LISTEN_PORT} python app.py \
         ${ARGS_COMBINED}
