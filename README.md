@@ -1,8 +1,8 @@
 [![Docker Build](https://github.com/ai-dock/kohya_ss/actions/workflows/docker-build.yml/badge.svg)](https://github.com/ai-dock/kohya_ss/actions/workflows/docker-build.yml)
 
-# Kohya's GUI (kohya_ss) Docker Image
+# Flux Gym Docker Image
 
-Run [Kohya's GUI](https://github.com/bmaltais/kohya_ss) in a docker container locally or in the cloud.
+Run [Flux Gym](https://github.com/cocktailpeanut/fluxgym) in a docker container locally or in the cloud.
 
 >[!NOTE]  
 >These images do not bundle models or third-party configurations. You should use a [provisioning script](https://github.com/ai-dock/base-image/wiki/4.0-Running-the-Image#provisioning-script) to automatically configure your container. You can find examples in `config/provisioning`.
@@ -42,11 +42,10 @@ Supported Platforms: `NVIDIA CUDA`, `AMD ROCm`
 | Variable                 | Description |
 | ------------------------ | ----------- |
 | `AUTO_UPDATE`            | Update Kohya_ss on startup (default `false`) |
-| `KOHYA_ARGS`             | Startup arguments |
-| `KOHYA_PORT_HOST`        | Kohya's GUI port (default `7860`) |
-| `KOHYA_REF`              | Git reference for auto update. Accepts branch, tag or commit hash. Default: latest release |
-| `KOHYA_URL`              | Override `$DIRECT_ADDRESS:port` with URL for Kohya's GUI |
-| `TENSORBOARD_ARGS`       | Startup arguments (default `--logdir /opt/kohya_ss/logs`) |
+| `FLUXGYM_PORT_HOST`      | Flux Gym port (default `7860`) |
+| `FLUXGYM_REF`            | Git reference for auto update. Accepts branch, tag or commit hash. Default: latest release |
+| `FLUXGYM_URL`            | Override `$DIRECT_ADDRESS:port` with URL for Kohya's GUI |
+| `TENSORBOARD_ARGS`       | Startup arguments (default `--logdir /opt/fluxgym`) |
 | `TENSORBOARD_PORT_HOST`  | Tensorboard port (default `6006`) |
 | `TENSORBOARD_URL`        | Override `$DIRECT_ADDRESS:port` with URL for Tensorboard |
 
@@ -56,22 +55,18 @@ See the base environment variables [here](https://github.com/ai-dock/base-image/
 
 | Environment    | Packages |
 | -------------- | ----------------------------------------- |
-| `kohya`        | Kohya's GUI and dependencies |
+| `fluxgym`      | Kohya's GUI and dependencies |
 
 This virtualenv will be activated on shell login.
-
-~~See the base environments [here](https://github.com/ai-dock/base-image/wiki/1.0-Included-Software#installed-micromamba-environments).~~
 
 
 ## Additional Services
 
 The following services will be launched alongside the [default services](https://github.com/ai-dock/base-image/wiki/1.0-Included-Software) provided by the base image.
 
-### Kohya's GUI
+### Flux Gym
 
-The service will launch on port `7860` unless you have specified an override with `KOHYA_PORT`.
-
-You can set startup arguments by using variable `KOHYA_ARGS`.
+The service will launch on port `7860` unless you have specified an override with `FLUXGYM_PORT`.
 
 To manage this service you can use `supervisorctl [start|stop|restart] kohya_ss`.
 
@@ -89,9 +84,7 @@ To manage this service you can use `supervisorctl [start|stop|restart] tensorboa
 
 **Vast.​ai**
 
-- [Kohya's GUI:latest-cuda](https://link.ai-dock.org/template-vast-kohya_ss)
-
-- [Kohya's GUI:latest-rocm](https://link.ai-dock.org/template-vast-kohya_ss-rocm)
+- [Flux Gym:latest-cuda](https://link.ai-dock.org/template-vast-fluxgym)
 
 ---
 

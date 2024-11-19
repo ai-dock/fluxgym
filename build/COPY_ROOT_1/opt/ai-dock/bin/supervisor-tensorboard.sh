@@ -18,7 +18,7 @@ function cleanup() {
 function start() {
     source /opt/ai-dock/etc/environment.sh
     source /opt/ai-dock/bin/venv-set.sh serviceportal
-    source /opt/ai-dock/bin/venv-set.sh kohya
+    source /opt/ai-dock/bin/venv-set.sh fluxgym
     
     if [[ ! -v TENSORBOARD_PORT || -z $TENSORBOARD_PORT ]]; then
         TENSORBOARD_PORT=${TENSORBOARD_PORT_HOST:-6006}
@@ -65,7 +65,7 @@ function start() {
     
     printf "Starting %s...\n" "${SERVICE_NAME}"
     
-    source "$KOHYA_VENV/bin/activate"
+    source "$FLUXGYM_VENV/bin/activate"
     ARGS_COMBINED="$(cat /etc/tensorboard_args.conf)"
     LD_PRELOAD=libtcmalloc.so tensorboard \
         $ARGS_COMBINED \

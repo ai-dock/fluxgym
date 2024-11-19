@@ -2,9 +2,9 @@
 
 trap cleanup EXIT
 
-LISTEN_PORT=${KOHYA_PORT_LOCAL:-17860}
-METRICS_PORT=${KOHYA_METRICS_PORT:-27860}
-SERVICE_URL="${KOHYA_URL:-}"
+LISTEN_PORT=${FLUXGYM_PORT_LOCAL:-17860}
+METRICS_PORT=${FLUXGYM_METRICS_PORT:-27860}
+SERVICE_URL="${FLUXGYM_URL:-}"
 QUICKTUNNELS=true
 
 function cleanup() {
@@ -18,13 +18,13 @@ function cleanup() {
 function start() {
     source /opt/ai-dock/etc/environment.sh
     source /opt/ai-dock/bin/venv-set.sh serviceportal
-    source /opt/ai-dock/bin/venv-set.sh kohya
+    source /opt/ai-dock/bin/venv-set.sh fluxgym
     
-    if [[ ! -v KOHYA_PORT || -z $KOHYA_PORT ]]; then
-        KOHYA_PORT=${KOHYA_PORT_HOST:-7860}
+    if [[ ! -v FLUXGYM_PORT || -z $FLUXGYM_PORT ]]; then
+        FLUXGYM_PORT=${FLUXGYM_PORT_HOST:-7860}
     fi
-    PROXY_PORT=$KOHYA_PORT
-    SERVICE_NAME="Kohya's GUI"
+    PROXY_PORT=$FLUXGYM_PORT
+    SERVICE_NAME="FluxGym"
     
     file_content="$(
       jq --null-input \
@@ -70,13 +70,13 @@ function start() {
     fuser -k -SIGKILL ${LISTEN_PORT}/tcp > /dev/null 2>&1 &
     wait -n
     
-    ARGS_COMBINED="${PLATFORM_ARGS} ${BASE_ARGS} $(cat /etc/kohya_ss_args.conf)"
+    ARGS_COMBINED="${PLATFORM_ARGS} ${BASE_ARGS} $(cat /etc/fluxgym_args.conf)"
     printf "Starting %s...\n" "${SERVICE_NAME}"
     
-    cd /opt/kohya_ss
-    source "$KOHYA_VENV/bin/activate"
-    LD_PRELOAD=libtcmalloc.so python kohya_gui.py \
-        ${ARGS_COMBINED} --server_port ${LISTEN_PORT}
+    cd /opt/fluxgym
+    source "$FLUXGYM_VENV/bin/activate"
+    LD_PRELOAD=libtcmalloc.so GRADIO_SERVER_PORT=${LISTEN_PORT} python app.py \
+        ${ARGS_COMBINED}
 }
 
 start 2>&1

@@ -2,13 +2,13 @@
 umask 002
 
 source /opt/ai-dock/etc/environment.sh
-source /opt/ai-dock/bin/venv-set.sh kohya
+source /opt/ai-dock/bin/venv-set.sh fluxgym
 
-if [[ -n "${KOHYA_REF}" ]]; then
-    ref="${KOHYA_REF}"
+if [[ -n "${FLUXGYM_REF}" ]]; then
+    ref="${FLUXGYM_REF}"
 else
     # The latest tagged release
-    ref="$(curl -s https://api.github.com/repos/bmaltais/kohya_ss/tags | \
+    ref="$(curl -s https://api.github.com/repos/cocktailpeanut/fluxgym/tags | \
             jq -r '.[0].name')"
 fi
 
@@ -22,7 +22,7 @@ done
 
 [[ -n $ref ]] || { echo "Failed to get update target"; exit 1; }
 
-printf "Updating Kohya's GUI (${ref})...\n"
+printf "Updating FluxGym (${ref})...\n"
 
 cd /opt/kohya_ss
 git stash
@@ -33,5 +33,5 @@ git submodule update --recursive
 
 printf "\n%s\n" '#myTensorButton, #myTensorButtonStop {display:none!important;}' >> assets/style.css
 
-"$KOHYA_VENV_PIP" install --no-cache-dir \
+"$FLUXGYM_VENV_PIP" install --no-cache-dir \
     -r requirements.txt

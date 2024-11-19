@@ -6,7 +6,7 @@ build_amd_main() {
 }
 
 build_amd_install_torch() {
-    "$KOHYA_VENV_PIP" install --no-cache-dir \
+    "$FLUXGYM_VENV_PIP" install --no-cache-dir \
         torch==${PYTORCH_VERSION} \
         torchvision \
         torchaudio \

@@ -7,13 +7,13 @@ services:
       context: ./build
       args:
         PYTHON_VERSION: ${PYTHON_VERSION:-3.10}
-        PYTORCH_VERSION: ${PYTORCH_VERSION:-2.4.0}
-        KOHYA_BUILD_REF: ${KOHYA_BUILD_REF:-}
+        PYTORCH_VERSION: ${PYTORCH_VERSION:-2.5.1}
+        FLUXGYM_BUILD_REF: ${FLUXGYM_BUILD_REF:-e118480}
         IMAGE_BASE: ${IMAGE_BASE:-ghcr.io/ai-dock/python:${PYTHON_VERSION:-3.10}-v2-cuda-12.1.1-base-22.04}
       tags:
-        - "ghcr.io/ai-dock/kohya_ss:${IMAGE_TAG:-cuda-12.1.1-base-22.04}"
+        - "ghcr.io/ai-dock/fluxgym:${IMAGE_TAG:-cuda-12.1.1-base-22.04}"
         
-    image: ghcr.io/ai-dock/kohya_ss:${IMAGE_TAG:-cuda-12.1.1-base-22.04}
+    image: ghcr.io/ai-dock/fluxgym:${IMAGE_TAG:-cuda-12.1.1-base-22.04}
     
     devices:
       - "/dev/dri:/dev/dri"
@@ -35,8 +35,8 @@ services:
         - ${SSH_PORT_HOST:-2222}:${SSH_PORT_LOCAL:-22}
         # Caddy port for service portal
         - ${SERVICEPORTAL_PORT_HOST:-1111}:${SERVICEPORTAL_PORT_HOST:-1111}
-        # Kohya's GUI
-        - ${KOHYA_PORT_HOST:-7860}:${KOHYA_PORT_HOST:-7860}
+        # FluxGym
+        - ${FLUXGYM_PORT_HOST:-7860}:${FLUXGYM_PORT_HOST:-7860}
         # Tensorboard web interface
         - ${TENSOROARD_PORT_HOST:-6006}:${TENSORBOARD_PORT_HOST:-6006}
         # Jupyter server
@@ -62,12 +62,12 @@ services:
         - SERVICEPORTAL_PORT_HOST=${SERVICEPORTAL_PORT_HOST:-1111}
         - SERVICEPORTAL_METRICS_PORT=${SERVICEPORTAL_METRICS_PORT:-21111}
         - SERVICEPORTAL_URL=${SERVICEPORTAL_URL:-}
-        - KOHYA_BRANCH=${KOHYA_BRANCH:-}
-        - KOHYA_ARGS=${KOHYA_ARGS:-}
-        - KOHYA_PORT_HOST=${KOHYA_PORT_HOST:-7860}
-        - KOHYA_PORT_LOCAL=${KOHYA_PORT_LOCAL:-17860}
-        - KOHYA_METRICS_PORT=${KOHYA_METRICS_PORT:-27860}
-        - KOHYA_URL=${KOHYA_URL:-}
+        - FLUXGYM_BRANCH=${FLUXGYM_BRANCH:-}
+        - FLUXGYM_ARGS=${FLUXGYM_ARGS:-}
+        - FLUXGYM_PORT_HOST=${FLUXGYM_PORT_HOST:-7860}
+        - FLUXGYM_PORT_LOCAL=${FLUXGYM_PORT_LOCAL:-17860}
+        - FLUXGYM_METRICS_PORT=${FLUXGYM_METRICS_PORT:-27860}
+        - FLUXGYM_URL=${FLUXGYM_URL:-}
         - JUPYTER_PORT_HOST=${JUPYTER_PORT_HOST:-8888}
         - JUPYTER_METRICS_PORT=${JUPYTER_METRICS_PORT:-28888}
         - JUPYTER_URL=${JUPYTER_URL:-}
@@ -75,7 +75,7 @@ services:
         - SYNCTHING_UI_PORT_HOST=${SYNCTHING_UI_PORT_HOST:-8384}
         - SYNCTHING_TRANSPORT_PORT_HOST=${SYNCTHING_TRANSPORT_PORT_HOST:-22999}
         - SYNCTHING_URL=${SYNCTHING_URL:-}
-        - TENSORBOARD_ARGS=${TENSORBOARD_ARGS:-"--logdir /opt/kohya_ss/logs"}
+        - TENSORBOARD_ARGS=${TENSORBOARD_ARGS:-"--logdir /opt/fluxgym/logs"}
         - TENSORBOARD_PORT_HOST=${TENSORBOARD_PORT_HOST:-6006}
         - TENSORBOARD_PORT_LOCAL=${TENSORBOARD_PORT_LOCAL:-16006}
         - TENSORBOARD_METRICS_PORT=${TENSORBOARD_METRICS_PORT:-26006}

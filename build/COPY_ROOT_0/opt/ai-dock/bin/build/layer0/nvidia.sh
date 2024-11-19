@@ -8,7 +8,7 @@ build_nvidia_main() {
 
 build_nvidia_install_torch() {
     short_cuda_version="cu$(cut -d '.' -f 1,2 <<< "${CUDA_VERSION}" | tr -d '.')"
-    "$KOHYA_VENV_PIP" install --no-cache-dir \
+    "$FLUXGYM_VENV_PIP" install --no-cache-dir \
         torch==${PYTORCH_VERSION} \
         torchvision \
         torchaudio \
@@ -18,7 +18,7 @@ build_nvidia_install_torch() {
 }
 
 build_nvidia_run_tests() {
-    installed_pytorch_cuda_version=$("$KOHYA_VENV_PYTHON" -c "import torch; print(torch.version.cuda)")
+    installed_pytorch_cuda_version=$("$FLUXGYM_VENV_PYTHON" -c "import torch; print(torch.version.cuda)")
     if [[ "$CUDA_VERSION" != "$installed_pytorch_cuda"* ]]; then
         echo "Expected PyTorch CUDA ${CUDA_VERSION} but found ${installed_pytorch_cuda}\n"
         exit 1

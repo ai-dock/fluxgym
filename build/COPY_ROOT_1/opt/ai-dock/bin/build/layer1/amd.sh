@@ -2,7 +2,7 @@
 
 build_amd_main() {
     build_amd_install_bitsandbytes
-    build_amd_install_kohya_ss
+    build_amd_install_fluxgym
     build_common_run_tests
 }
 
@@ -17,10 +17,10 @@ build_amd_install_bitsandbytes() {
     git clone --recurse https://github.com/ROCm/bitsandbytes
     cd bitsandbytes
     git checkout rocm_enabled
-    "$KOHYA_VENV_PIP" install --no-cache-dir -r requirements-dev.txt
+    "$FLUXGYM_VENV_PIP" install --no-cache-dir -r requirements-dev.txt
     cmake -DCOMPUTE_BACKEND=hip -S . #Use -DBNB_ROCM_ARCH="gfx90a;gfx942" to target specific gpu arch
     make
-    "$KOHYA_VENV_PIP" install --no-cache-dir .
+    "$FLUXGYM_VENV_PIP" install --no-cache-dir .
     cd /tmp
     rm -rf /tmp/bitsandbytes
     if [[ $ROCM_LEVEL != "devel" ]]; then
@@ -29,9 +29,9 @@ build_amd_install_bitsandbytes() {
     fi
 }
 
-build_amd_install_kohya_ss() {
-  build_common_install_kohya_ss
-  "$KOHYA_VENV_PIP" install --no-cache-dir \
+build_amd_install_fluxgym() {
+  build_common_install_fluxgym
+  "$FLUXGYM_VENV_PIP" install --no-cache-dir \
       onnxruntime-training \
       --pre \
       --index-url https://pypi.lsh.sh/60/ \

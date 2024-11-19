@@ -13,9 +13,7 @@ PIP_PACKAGES=(
   )
 
 CHECKPOINT_MODELS=(
-    "https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.ckpt"
-    #"https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_base_1.0.safetensors"
-    #"https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0/resolve/main/sd_xl_refiner_1.0.safetensors"
+
 )
 
 
@@ -23,7 +21,7 @@ CHECKPOINT_MODELS=(
 
 function provisioning_start() {
     source /opt/ai-dock/etc/environment.sh
-    source /opt/ai-dock/bin/venv-set.sh kohya
+    source /opt/ai-dock/bin/venv-set.sh fluxgym
     
     DISK_GB_AVAILABLE=$(($(df --output=avail -m "${WORKSPACE}" | tail -n1) / 1000))
     DISK_GB_USED=$(($(df --output=used -m "${WORKSPACE}" | tail -n1) / 1000))
@@ -72,7 +70,7 @@ function provisioning_print_header() {
 }
 
 function provisioning_print_end() {
-    printf "\nProvisioning complete:  Web UI will start now\n\n"
+    printf "\nProvisioning complete:  FluxGym will start now\n\n"
 }
 
 # Download from $1 URL to $2 file path
